@@ -21,9 +21,10 @@ module.exports = {
         
         // 在渲染页面时将用户的信息一起传到index.ejs页面中,为了在index.ejs页面中获取用户的登录状态
         // limit 第一个参数表示从该参数的下一条数据开始，第二个参数表示每次返回的数据条数。
-        const sql = `select a.title,a.ctime,u.nickname from articleinfo as a LEFT JOIN userinfo as u on a.authod_id = u.id order by ctime desc limit ${(currentPage-1)*pageSize},${pageSize};
+        const sql = `select a.id,a.title,a.ctime,u.nickname from articleinfo as a LEFT JOIN userinfo as u on a.authod_id = u.id order by ctime desc limit ${(currentPage-1)*pageSize},${pageSize};
         select count(*) as count from articleInfo `
         conn.query(sql,(err,result) => {
+            // console.log(result) 
             const totalPage = Math.ceil(result[1][0].count / pageSize)
             res.render('./index.ejs/',{
                 user:req.session.user,
@@ -33,7 +34,7 @@ module.exports = {
                 totalPage:totalPage,
                 currentPage:currentPage
             })
-            // console.log(currentPage)            
+                       
         })
         
         

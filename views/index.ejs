@@ -9,13 +9,13 @@
   <ul class="list-group">
     <% for(var i=0;i<data.length;i++){ %>
     <% item = data[i]%>
-    <li class="list-group-item">
+    <a class="list-group-item" href='/article/detail/<%= item.id %>'>
       <span class="badge" style="background:#5bc0de">
         <%= item.ctime%></span>
       <span class="badge" style="background:#f0ad4e">
         <%= item.nickname%></span>
       <%= item.title%>
-    </li>
+      </a>
     <% } %>
   </ul>
   <nav aria-label="Page navigation">
