@@ -1,0 +1,44 @@
+<%- include('../common/header.ejs') %>
+<link rel="stylesheet" href="/node_modules/_mditor@1.3.3@mditor/dist/css/mditor.min.css">
+<script src="/node_modules/_mditor@1.3.3@mditor/dist/js/mditor.min.js"></script>
+  <div class="container">
+    <h1>发表文章页</h1>
+    <hr>
+    <form id="form">
+      <div class="form-group">
+        <label>文章标题：</label>
+        <input type="text" name="title" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label>文章内容：</label>
+        <!-- <textarea name="editor" class="form-control" id="editor"></textarea> -->
+        <textarea name="content" id="editor"></textarea>
+      </div>
+
+      <div class="form-group">
+        <input type="submit" value="发表文章" class="btn btn-primary">
+      </div>
+    </form>
+  </div>
+<%- include('../common/footer.ejs')%>
+ <script>
+   var mditor =  Mditor.fromTextarea(document.getElementById('editor'));
+  // 填写表单后提交表单
+  $(function(){
+    $('#form').on('submit',function(e){
+      e.preventDefault()
+      $.ajax({
+        type:'post',
+        url:'/article/addInfo',
+        data:$('#form').serialize(),
+        dataType:'json',
+        success:function(res){
+          location.href = '/article/detail/'+res.articleId
+          // console.log(res)
+          // console.log(res.articleId)
+        }
+      })
+    })
+  })
+ </script>

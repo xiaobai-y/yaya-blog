@@ -1,0 +1,58 @@
+<!-- 引入头部和底部模板 -->
+<%- include('./common/header.ejs') %>
+<style>
+  /* .active{
+    background-color: #428bca;
+  } */
+</style>
+<div class="container">
+  <ul class="list-group">
+    <% for(var i=0;i<data.length;i++){ %>
+    <% item = data[i]%>
+    <li class="list-group-item">
+      <span class="badge" style="background:#5bc0de">
+        <%= item.ctime%></span>
+      <span class="badge" style="background:#f0ad4e">
+        <%= item.nickname%></span>
+      <%= item.title%>
+    </li>
+    <% } %>
+  </ul>
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li>
+        <!-- 如果当前页数等于1,呈现禁用状态 -->
+        <% if(currentPage == 1) { %>
+          <span aria-hidden="true" class="btn btn-default " disabled="disabled">&laquo;</span>
+        <% }else{ %>
+          <a href="/?page=<%= currentPage > 1 ? currentPage -1 : 1 %>" <%=i %> aria-label="Previous">       
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        <% } %>
+        
+      </li>
+      <% for(var i=1;i<=totalPage;i++){ %>
+      <!-- <li class="active"> -->
+      <li class="<%= currentPage == i ? 'active' : '' %>">
+        <a href="/?page=<%= i %>" <%=i %>
+        </a>
+        <%= i %>
+        </a>
+      </li>
+      <% } %>
+      <li>
+          <!-- 如果当前页数等于最大页数,呈现禁用状态 -->
+          <% if(currentPage == totalPage) { %>
+            <span aria-hidden="true" class="btn btn-default " disabled="disabled">&raquo;</span>
+          <% }else{ %>
+            <a href="/?page=<%= currentPage < totalPage ? currentPage + 1 : totalPage %>" <%=i %>" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          <% } %>
+        
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<%- include('./common/footer.ejs') %>
